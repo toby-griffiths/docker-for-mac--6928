@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+docker buildx build \
+    --target api_platform_php \
+    --platform linux/amd64,linux/arm64 \
+    --cache-to type=inline \
+    --build-arg BASE_COMPOSER_IMAGE=composer:latest \
+    --build-arg BASE_PHP_IMAGE=php:7.4-fpm-alpine \
+    --build-arg BASE_OPENRESTY_IMAGE=openresty/openresty:1.17.8.2-alpine \
+    --build-arg BASE_SSH_IMAGE=alpine:3 \
+    --build-arg BASE_MONGODB_IMAGE=mongo:4.4 \
+    --build-arg BASE_VARNISH_IMAGE=varnish:6.4 \
+    --build-arg CACHE_BUST_RANDOM_KEY=6760a880a147e5.83688969 \
+    --tag good-technologies/crm/api/php:dev \
+    --progress=plain .
